@@ -1,7 +1,8 @@
+import os
 from telegram import ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 
-TOKEN = "8682736647:AAEplBFLa9BcYjt4ijNuJtzekPNp6C2iUqQ"
+TOKEN = os.getenv("BOT_TOKEN")
 
 # عند /start
 async def start(update, context):
