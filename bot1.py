@@ -1,35 +1,18 @@
-import os
-from telegram import ReplyKeyboardMarkup
-from telegram.ext import Application, CommandHandler, MessageHandler, filters
+from telegram import Update
+from telegram.ext import Application, CommandHandler, ContextTypes
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = "8682736647:AAEplBFLa9BcYjt4ijNuJtzekPNp6C2iUqQ"
 
-# عند /start
-async def start(update, context):
-    keyboard = [
-        ["📩 مرحباً", "ℹ️ معلومات"]
-    ]
+# أمر start
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("البوت يعمل ✅")
 
-    reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
-
-    await update.message.reply_text("اختر زر:", reply_markup=reply_markup)
-
-
-# الرد على الأزرار
-async def handle_message(update, context):
-    text = update.message.text
-
-    if text == "📩 مرحباً":
-        await update.message.reply_text("أهلاً بك 👋")
-
-    elif text == "ℹ️ معلومات":
-        await update.message.reply_text("هذا بوت تجريبي 🤖")
-
+# إنشاء التطبيق
 app = Application.builder().token(TOKEN).build()
 
+# إضافة الأوامر
 app.add_handler(CommandHandler("start", start))
-app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-print("البوت يعمل...")
-
+# تشغيل البوت
+print("Bot running...")
 app.run_polling()
